@@ -1,5 +1,4 @@
 @echo off
-echo "helo"
 
 if exist "..\x64\Release\PreventLockWorkstation_x64.dll" (
 if exist "..\Release\PreventLockWorkstation_x86.dll" (
