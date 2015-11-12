@@ -1,0 +1,8 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows]
+"AppInit_DLLs"="c:\\PreventLockWorkstation\\PreventLockWorkstation_x64.dll"
+ 
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows]
+"AppInit_DLLs"="c:\\PreventLockWorkstation\\PreventLockWorkstation_x86.dll"
+
