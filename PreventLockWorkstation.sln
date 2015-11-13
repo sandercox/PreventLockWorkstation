@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PreventLockWorkstation", "PreventLockWorkstation\PreventLockWorkstation.vcxproj", "{AC0715A8-B6F7-4ECA-A004-7A81F0EFF100}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mhook", "mhook\mhook.vcxproj", "{A21D53CA-67B1-4C86-B4F5-33F1ED92C90C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestApp", "TestApp\TestApp.vcxproj", "{343CC275-A8D9-454A-9827-7CC00157723F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AC0715A8-B6F7-4ECA-A004-7A81F0EFF100} = {AC0715A8-B6F7-4ECA-A004-7A81F0EFF100}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +36,14 @@ Global
 		{A21D53CA-67B1-4C86-B4F5-33F1ED92C90C}.Release|x64.Build.0 = Release|x64
 		{A21D53CA-67B1-4C86-B4F5-33F1ED92C90C}.Release|x86.ActiveCfg = Release|Win32
 		{A21D53CA-67B1-4C86-B4F5-33F1ED92C90C}.Release|x86.Build.0 = Release|Win32
+		{343CC275-A8D9-454A-9827-7CC00157723F}.Debug|x64.ActiveCfg = Debug|x64
+		{343CC275-A8D9-454A-9827-7CC00157723F}.Debug|x64.Build.0 = Debug|x64
+		{343CC275-A8D9-454A-9827-7CC00157723F}.Debug|x86.ActiveCfg = Debug|Win32
+		{343CC275-A8D9-454A-9827-7CC00157723F}.Debug|x86.Build.0 = Debug|Win32
+		{343CC275-A8D9-454A-9827-7CC00157723F}.Release|x64.ActiveCfg = Release|x64
+		{343CC275-A8D9-454A-9827-7CC00157723F}.Release|x64.Build.0 = Release|x64
+		{343CC275-A8D9-454A-9827-7CC00157723F}.Release|x86.ActiveCfg = Release|Win32
+		{343CC275-A8D9-454A-9827-7CC00157723F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
