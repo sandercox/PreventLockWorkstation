@@ -4,9 +4,9 @@
 // LockWorkStation official type definition
 typedef BOOL(WINAPI* _LockWorkStation)();
 
-//#ifdef _DEBUG
-//#define LOGTRACE 1
-//#endif
+#ifdef _DEBUG
+#define LOGTRACE 1
+#endif
 
 BOOL WINAPI BlockedLockWorkStation()
 {
