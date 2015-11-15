@@ -6,7 +6,7 @@ mkdir c:\preventlockworkstation
 copy "..\x64\Release\PreventLockWorkstation_x64.dll" c:\preventlockworkstation
 copy "..\Release\PreventLockWorkstation_x86.dll" c:\preventlockworkstation
 
-reg import registry.reg
+reg import registry_appinit.reg
 
 ))
 
@@ -16,6 +16,6 @@ mkdir c:\preventlockworkstation
 copy "PreventLockWorkstation_x64.dll" c:\preventlockworkstation
 copy "PreventLockWorkstation_x86.dll" c:\preventlockworkstation
 
-reg import registry.reg
+reg import registry_appinit.reg
 
 ))
