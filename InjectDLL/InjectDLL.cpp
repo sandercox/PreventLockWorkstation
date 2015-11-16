@@ -161,8 +161,6 @@ std::string GetProcessName(DWORD pid)
 	HANDLE hProcess = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, pid);
 	if (NULL != hProcess)
 	{
-		HMODULE hMod[512];
-		DWORD cbNeeded;
 		char buffer[MAX_PATH] = "<unknown>";
 		DWORD dwSize = sizeof(buffer) / sizeof(char);
 		if (!QueryFullProcessImageNameA(hProcess, 0, buffer, &dwSize))
@@ -196,9 +194,10 @@ void PrintProcessInfo(DWORD pid)
 
 int _tmain(int argc, char* argv[])
 {
-	char path[MAX_PATH];
-	GetCurrentDirectoryA(MAX_PATH, path);
-
+#ifdef LOG_DEBUG
+	std::ofstream log("d:\\work\\injectdll.txt", std::ios::app | std::ios::out);
+	log << "Inject dll... " << std::endl;
+#endif
 	HANDLE hProc = GetCurrentProcess();
 
 	HANDLE hToken;
@@ -224,11 +223,18 @@ int _tmain(int argc, char* argv[])
 	}
 
 
-	std::string sInjectDll(path);
-	sInjectDll += "\\PreventLockWorkStation_x86.dll";
+	char path[MAX_PATH];
+	GetCurrentDirectoryA(MAX_PATH, path);
 
-	std::string sProcess(argv[1]);
+	std::string sInjectDll(argv[1]);
+#ifdef LOG_DEBUG
+	log << "Inject dll: " << sInjectDll << std::endl;
+#endif
+	std::string sProcess(argv[2]);
 	std::transform(sProcess.begin(), sProcess.end(), sProcess.begin(), ::tolower);
+#ifdef LOG_DEBUG
+	log << "Process name: " << sProcess << std::endl;
+#endif
 
 #ifdef LOG_DEBUG
 	std::cout << "Looking for process PID of process: " << sProcess << " to hook the dll: " << sInjectDll << " into..." << std::endl;
@@ -254,6 +260,9 @@ int _tmain(int argc, char* argv[])
 			std::transform(sProcessName.begin(), sProcessName.end(), sProcessName.begin(), ::tolower);
 			if (sProcessName == sProcess)
 			{
+#ifdef LOG_DEBUG
+				log << "Process found in pid: " << dwPids[i] << std::endl;
+#endif
 				InjectDllIntoProcess(dwPids[i], sInjectDll);
 			}
 
