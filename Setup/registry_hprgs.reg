@@ -1,5 +1,5 @@
 Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
-"PreventLockWorkStation_RGS"="\"C:\\PreventLockWorkStation\\InjectDll.exe\" c:\\PreventLockWorkStation\\PreventLockWorkStation_x86.dll rgsender.exe"
+"PreventLockWorkStation_RGS"="\"C:\\PreventLockWorkStation\\InjectDll.exe\" c:\\PreventLockWorkStation\\PreventLockWorkStation_x86.dll rgsender.exe 60"
 

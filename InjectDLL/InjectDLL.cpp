@@ -231,42 +231,60 @@ int _tmain(int argc, char* argv[])
 	log << "Inject dll: " << sInjectDll << std::endl;
 #endif
 	std::string sProcess(argv[2]);
-	std::transform(sProcess.begin(), sProcess.end(), sProcess.begin(), ::tolower);
-#ifdef LOG_DEBUG
-	log << "Process name: " << sProcess << std::endl;
-#endif
 
-#ifdef LOG_DEBUG
-	std::cout << "Looking for process PID of process: " << sProcess << " to hook the dll: " << sInjectDll << " into..." << std::endl;
-#endif
+	int retryCount = 1;
 
-	DWORD dwPids[1024];
-	DWORD cbNeeded;
-
-	if (!EnumProcesses(dwPids, sizeof(dwPids), &cbNeeded))
+	if (argc >= 4)
 	{
-		std::cerr << "Could not enumerate processes on system!" << std::endl;
-		return 1;
+		retryCount = atol(argv[3]);
 	}
 
-	DWORD dwCount = cbNeeded / sizeof(DWORD);
-
-	for (DWORD i = 0; i < dwCount; ++i)
+	for (int retryCounter = 0; retryCounter < retryCount; retryCounter++)
 	{
-		if (dwPids[i] != 0 && dwPids[i] > 10)
-		{
-			PrintProcessInfo(dwPids[i]);
-			std::string sProcessName(GetProcessName(dwPids[i]));
-			std::transform(sProcessName.begin(), sProcessName.end(), sProcessName.begin(), ::tolower);
-			if (sProcessName == sProcess)
-			{
-#ifdef LOG_DEBUG
-				log << "Process found in pid: " << dwPids[i] << std::endl;
-#endif
-				InjectDllIntoProcess(dwPids[i], sInjectDll);
-			}
+		if (retryCounter != 0)
+			Sleep(1000);
 
+		std::transform(sProcess.begin(), sProcess.end(), sProcess.begin(), ::tolower);
+#ifdef LOG_DEBUG
+		log << "Process name: " << sProcess << std::endl;
+#endif
+
+#ifdef LOG_DEBUG
+		std::cout << "Looking for process PID of process: " << sProcess << " to hook the dll: " << sInjectDll << " into..." << std::endl;
+#endif
+
+		DWORD dwPids[1024];
+		DWORD cbNeeded;
+
+		if (!EnumProcesses(dwPids, sizeof(dwPids), &cbNeeded))
+		{
+			std::cerr << "Could not enumerate processes on system!" << std::endl;
+			return 1;
 		}
+
+		DWORD dwCount = cbNeeded / sizeof(DWORD);
+
+		bool bInjected(false);
+		for (DWORD i = 0; i < dwCount; ++i)
+		{
+			if (dwPids[i] != 0 && dwPids[i] > 10)
+			{
+				PrintProcessInfo(dwPids[i]);
+				std::string sProcessName(GetProcessName(dwPids[i]));
+				std::transform(sProcessName.begin(), sProcessName.end(), sProcessName.begin(), ::tolower);
+				if (sProcessName == sProcess)
+				{
+#ifdef LOG_DEBUG
+					log << "Process found in pid: " << dwPids[i] << std::endl;
+#endif
+					InjectDllIntoProcess(dwPids[i], sInjectDll);
+					bInjected = true;
+				}
+
+			}
+		}
+		if (bInjected)
+			break;
 	}
 
 	return 0;
